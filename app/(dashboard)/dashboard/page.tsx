@@ -14,7 +14,7 @@ export default function DashboardPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-4xl font-bold mb-2">Welcome back, {mockUser.fullName}</h1>
+        <h1 className="text-4xl font-bold mb-2">Welcome back, {mockUser.name}</h1>
         <p className="text-gray-600">
           You've earned {mockUser.creditsEarned} credits so far
         </p>
