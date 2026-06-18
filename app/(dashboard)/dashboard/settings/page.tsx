@@ -8,9 +8,8 @@ import { mockUser } from "@/lib/mock";
 
 export default function SettingsPage() {
   const [formData, setFormData] = useState({
-    fullName: mockUser.fullName,
+    name: mockUser.name,
     email: mockUser.email,
-    university: mockUser.university || "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,8 +33,8 @@ export default function SettingsPage() {
         <div className="space-y-4">
           <Input
             label="Full name"
-            name="fullName"
-            value={formData.fullName}
+            name="name"
+            value={formData.name}
             onChange={handleChange}
           />
           <Input
@@ -43,13 +42,6 @@ export default function SettingsPage() {
             name="email"
             type="email"
             value={formData.email}
-            onChange={handleChange}
-          />
-          <Input
-            label="Target university"
-            name="university"
-            placeholder="e.g., University of California"
-            value={formData.university}
             onChange={handleChange}
           />
           <Button onClick={handleSave}>Save changes</Button>
