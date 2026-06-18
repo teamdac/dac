@@ -109,13 +109,11 @@ export default function CoursePage() {
 
         {/* Right Column - Sidebar */}
         <div className="md:col-span-1 space-y-6">
-          <Card>
-            <p className="text-sm text-gray-600 mb-2">Price</p>
-            <p className="text-3xl font-bold text-primary-600 mb-4">${course.price}</p>
-            <Button fullWidth variant={enrollment.status === "completed" ? "secondary" : "primary"}>
-              {enrollment.status === "completed" ? "View Results" : "Continue Course"}
-            </Button>
-          </Card>
+         <Card>
+  <Button fullWidth variant={enrollment.status === "completed" ? "secondary" : "primary"}>
+    {enrollment.status === "completed" ? "View Results" : "Continue Course"}
+  </Button>
+</Card>
 
           <Card>
             <h3 className="font-semibold mb-4">Course Details</h3>
