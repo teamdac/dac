@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
-import { mockCourses } from "@/lib/mock/courses";
+import { getCourses } from "@/lib/airtable";
 
-export default function Home() {
+export default async function Home() {
+  const mockCourses = await getCourses();
   const featuredCourses = mockCourses.slice(0, 3);
 
   return (

@@ -3,9 +3,16 @@
 import Link from "next/link";
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
-import { mockUser, mockCourses } from "@/lib/mock";
+import { useState, useEffect } from "react";
+import type { Course, User } from "@/lib/types";
 
 export default function DashboardPage() {
+  const [mockCourses, setMockCourses] = useState<Course[]>([]);
+  const [mockUser, setMockUser] = useState<any>({ name: "", creditsEarned: 0, enrollments: [] });
+  useEffect(() => {
+    fetch("/api/courses").then((r) => r.json()).then(setMockCourses);
+    fetch("/api/user").then((r) => r.json()).then((u: any) => setMockUser({ ...u, name: u?.fullName ?? "" }));
+  }, []);
   const enrolledCourseIds = mockUser.enrollments.map((e) => e.courseId);
   const enrolledCourses = mockCourses.filter((c) =>
     enrolledCourseIds.includes(c.id)

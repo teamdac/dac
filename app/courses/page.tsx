@@ -1,12 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
-import { mockCourses } from "@/lib/mock/courses";
+import type { Course } from "@/lib/types";
 
 export default function CoursesPage() {
+  const [mockCourses, setMockCourses] = useState<Course[]>([]);
+  useEffect(() => {
+    fetch("/api/courses").then((r) => r.json()).then(setMockCourses);
+  }, []);
   const [selectedCredit, setSelectedCredit] = useState<number | null>(null);
 
   const filtered = selectedCredit

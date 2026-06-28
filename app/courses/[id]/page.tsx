@@ -1,17 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Card } from "@/components/Card";
 import { Button } from "@/components/Button";
-import { getCourseById } from "@/lib/mock/courses";
-import { mockUser } from "@/lib/mock/user";
+import type { Course } from "@/lib/types";
 
 export default function CoursePage() {
-  // For now, just show course ID "1"
-  const courseId = "1";
-  const course = getCourseById(courseId);
-  const enrollment = mockUser.enrollments.find((e) => e.courseId === courseId);
+  const params = useParams();
+  const courseId = String(params.id);
+  const [course, setCourse] = useState<Course | null>(null);
+  useEffect(() => {
+    fetch("/api/courses")
+      .then((r) => r.json())
+      .then((all: Course[]) => setCourse(all.find((c) => c.id === courseId) ?? null));
+  }, [courseId]);
+  const enrollment = course ? { courseId, status: "active" } : null;
 
   if (!course || !enrollment) {
     return (

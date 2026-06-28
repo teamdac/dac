@@ -1,10 +1,17 @@
 "use client";
 
 import { Card } from "@/components/Card";
-import { mockUser, mockCourses } from "@/lib/mock";
+import { useState, useEffect } from "react";
+import type { Course } from "@/lib/types";
 import { Button } from "@/components/Button";
 
 export default function CreditsPage() {
+  const [mockCourses, setMockCourses] = useState<Course[]>([]);
+  const [mockUser, setMockUser] = useState<any>({ name: "", creditsEarned: 0, enrollments: [] });
+  useEffect(() => {
+    fetch("/api/courses").then((r) => r.json()).then(setMockCourses);
+    fetch("/api/user").then((r) => r.json()).then((u: any) => setMockUser({ ...u, name: u?.fullName ?? "" }));
+  }, []);
   const completedEnrollments = mockUser.enrollments.filter(
     (e) => e.status === "completed"
   );

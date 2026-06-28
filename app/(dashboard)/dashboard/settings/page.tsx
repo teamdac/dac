@@ -1,16 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/Card";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
-import { mockUser } from "@/lib/mock";
+
 
 export default function SettingsPage() {
+  const [mockUser, setMockUser] = useState<any>({ name: "", email: "" });
+  useEffect(() => {
+    fetch("/api/user").then((r) => r.json()).then((u: any) => setMockUser({ ...u, name: u?.fullName ?? "" }));
+  }, []);
   const [formData, setFormData] = useState({
     name: mockUser.name,
     email: mockUser.email,
   });
+  useEffect(() => {
+    setFormData({ name: mockUser.name ?? "", email: mockUser.email ?? "" });
+  }, [mockUser]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
